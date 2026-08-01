@@ -1,0 +1,67 @@
+import 'package:e_commerce_app/Core/Routing/app_router.dart';
+import 'package:e_commerce_app/Core/utils/service_locator.dart';
+import 'package:e_commerce_app/Features/Auth/cubit/auth_cubit.dart';
+import 'package:e_commerce_app/Features/Auth/loginscreen/loginscreen.dart';
+import 'package:e_commerce_app/Features/Auth/registerscreen/registerscreen.dart';
+import 'package:e_commerce_app/Features/main/account/address/addressscreen.dart';
+import 'package:e_commerce_app/Features/main/cart/cubit/cart_cubit.dart';
+import 'package:e_commerce_app/Features/main/detailsscreen/detailsscreen.dart';
+import 'package:e_commerce_app/Features/main/home/models/product_model.dart';
+import 'package:e_commerce_app/Features/main/mainscreen.dart';
+import 'package:e_commerce_app/Features/splash/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+class RouterGen {
+  static GoRouter router = GoRouter(
+    initialLocation: AppRouter.splash,
+
+    routes: [
+      GoRoute(
+        path: AppRouter.splash,
+        name: AppRouter.splash,
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: AppRouter.login,
+        name: AppRouter.login,
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<AuthCubit>(),
+
+          child: Loginscreen(),
+        ),
+      ),
+      GoRoute(
+        path: AppRouter.register,
+        name: AppRouter.register,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => sl<AuthCubit>(),
+            child: const Registerscreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRouter.home,
+        name: AppRouter.home,
+        builder: (context, state) => const Mainscreen(),
+      ),
+      GoRoute(
+        path: AppRouter.details,
+        name: AppRouter.details,
+        builder: (context, state) {
+          ProductModel product = state.extra as ProductModel;
+          return BlocProvider(
+            create: (context) => sl<CartCubit>(),
+            child: Detailsscreen(product: product),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRouter.address,
+        name: AppRouter.address,
+        builder: (context, state) => const Addressscreen(),
+      ),
+    ],
+  );
+}
