@@ -207,7 +207,7 @@ Developed by **Kirolos Emad**
 
 GitHub: [@kero12-eg](https://github.com/kero12-eg)
 
-Repository: [kero12-eg/e_commerce_app](https://github.com/kero12-eg/e_commerce_app1)
+Repository: [kero12-eg/e_commerce_app1](https://github.com/kero12-eg/e_commerce_app1)
 
 ---
 
